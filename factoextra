@@ -1,0 +1,25 @@
+library(tidyverse)
+library(factoextra)
+library(FactoMineR)
+
+## http://www.sthda.com/english/wiki/factoextra-r-package-easy-multivariate-data-analyses-and-elegant-visualization
+
+data("decathlon2")
+
+df <- decathlon2[1:23, 1:10]
+
+res.pca <- PCA(df)
+res.pca$eig
+
+## % Var explain
+fviz_screeplot(res.pca, addlabels = TRUE, ylim = c(0, 50))
+
+##Viz plot
+fviz_pca_var(res.pca, col.var = "red")
+
+
+##Control variable colors using their contributions
+fviz_pca_var(res.pca, col.var="contrib",
+             gradient.cols = c("#00AFBB", "#E7B800", "#FC4E07"),
+             repel = TRUE # Avoid text overlapping
+)
